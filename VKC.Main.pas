@@ -913,7 +913,7 @@ begin
       Products: TVkProducts;
       UParams: TVkParamsGroupsGetMembers;
       PParams: TVkParamsPhotosGetAll;
-      VParams: TVkParamsVideosGet;
+      VParams: TVkParamsVideoGet;
       AParams: TVkParamsAudioGet;
       MParams: TVkParamsConversationsGet;
       DParams: TVkParamsDocsGet;
@@ -1771,7 +1771,7 @@ begin
     var
       Items: TVkVideoAlbums;
       Item: TVkVideoAlbum;
-      Params: TVkParamsVideoAlbumsGet;
+      Params: TVkParamsVideoGetAlbums;
       Cnt: Integer;
     begin
       Cnt := 0;
@@ -2334,7 +2334,7 @@ begin
           var
             Items: TVkVideos;
             Item: TVkVideo;
-            Params: TVkParamsVideosGet;
+            Params: TVkParamsVideoGet;
           begin
             Result := 0;
             Params.Offset(Offset);
@@ -2712,7 +2712,7 @@ begin
       NParams: TVkParamsNotesGet;
       GParams: TVkParamsGroupsGet;
       PParams: TVkParamsPhotosGet;
-      VParams: TVkParamsVideosGet;
+      VParams: TVkParamsVideoGet;
       FParams: TVkParamsFriendsGet;
       MtParams: TVkParamsMarketGet;
       PaParams: TVkParamsPhotosGetAll;
