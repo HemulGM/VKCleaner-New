@@ -1,0 +1,156 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{FC900899-F31B-4C03-AA4A-2C850EC0F50C}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="VKCleaner.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\FMXVK\Project1.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\VKClean\VKClean.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\VKAudioPlayer\FMX\VKPlayer.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\VK_API\VKComponents.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\#Learn\HTTPServ\Project18.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\RandomWall\RandomWall.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\Components\HGMComponents.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\VKMessage\VKMessageApp.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\VK_API\Samples\Bot\VKBotTemplate.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\#Little\VKParamsParse\VKParams.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="VKCleaner">
+        <MSBuild Projects="VKCleaner.dproj"/>
+    </Target>
+    <Target Name="VKCleaner:Clean">
+        <MSBuild Projects="VKCleaner.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="VKCleaner:Make">
+        <MSBuild Projects="VKCleaner.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Project1">
+        <MSBuild Projects="..\FMXVK\Project1.dproj"/>
+    </Target>
+    <Target Name="Project1:Clean">
+        <MSBuild Projects="..\FMXVK\Project1.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Project1:Make">
+        <MSBuild Projects="..\FMXVK\Project1.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="VKClean">
+        <MSBuild Projects="..\VKClean\VKClean.dproj"/>
+    </Target>
+    <Target Name="VKClean:Clean">
+        <MSBuild Projects="..\VKClean\VKClean.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="VKClean:Make">
+        <MSBuild Projects="..\VKClean\VKClean.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="VKPlayer">
+        <MSBuild Projects="..\VKAudioPlayer\FMX\VKPlayer.dproj"/>
+    </Target>
+    <Target Name="VKPlayer:Clean">
+        <MSBuild Projects="..\VKAudioPlayer\FMX\VKPlayer.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="VKPlayer:Make">
+        <MSBuild Projects="..\VKAudioPlayer\FMX\VKPlayer.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="VKComponents">
+        <MSBuild Projects="..\VK_API\VKComponents.dproj"/>
+    </Target>
+    <Target Name="VKComponents:Clean">
+        <MSBuild Projects="..\VK_API\VKComponents.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="VKComponents:Make">
+        <MSBuild Projects="..\VK_API\VKComponents.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Project18">
+        <MSBuild Projects="..\#Learn\HTTPServ\Project18.dproj"/>
+    </Target>
+    <Target Name="Project18:Clean">
+        <MSBuild Projects="..\#Learn\HTTPServ\Project18.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Project18:Make">
+        <MSBuild Projects="..\#Learn\HTTPServ\Project18.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="RandomWall">
+        <MSBuild Projects="..\RandomWall\RandomWall.dproj"/>
+    </Target>
+    <Target Name="RandomWall:Clean">
+        <MSBuild Projects="..\RandomWall\RandomWall.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="RandomWall:Make">
+        <MSBuild Projects="..\RandomWall\RandomWall.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="HGMComponents">
+        <MSBuild Projects="..\Components\HGMComponents.dproj"/>
+    </Target>
+    <Target Name="HGMComponents:Clean">
+        <MSBuild Projects="..\Components\HGMComponents.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="HGMComponents:Make">
+        <MSBuild Projects="..\Components\HGMComponents.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="VKMessageApp">
+        <MSBuild Projects="..\VKMessage\VKMessageApp.dproj"/>
+    </Target>
+    <Target Name="VKMessageApp:Clean">
+        <MSBuild Projects="..\VKMessage\VKMessageApp.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="VKMessageApp:Make">
+        <MSBuild Projects="..\VKMessage\VKMessageApp.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="VKBotTemplate">
+        <MSBuild Projects="..\VK_API\Samples\Bot\VKBotTemplate.dproj"/>
+    </Target>
+    <Target Name="VKBotTemplate:Clean">
+        <MSBuild Projects="..\VK_API\Samples\Bot\VKBotTemplate.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="VKBotTemplate:Make">
+        <MSBuild Projects="..\VK_API\Samples\Bot\VKBotTemplate.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="VKParams">
+        <MSBuild Projects="..\#Little\VKParamsParse\VKParams.dproj"/>
+    </Target>
+    <Target Name="VKParams:Clean">
+        <MSBuild Projects="..\#Little\VKParamsParse\VKParams.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="VKParams:Make">
+        <MSBuild Projects="..\#Little\VKParamsParse\VKParams.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="VKCleaner;Project1;VKClean;VKPlayer;VKComponents;Project18;RandomWall;HGMComponents;VKMessageApp;VKBotTemplate;VKParams"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="VKCleaner:Clean;Project1:Clean;VKClean:Clean;VKPlayer:Clean;VKComponents:Clean;Project18:Clean;RandomWall:Clean;HGMComponents:Clean;VKMessageApp:Clean;VKBotTemplate:Clean;VKParams:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="VKCleaner:Make;Project1:Make;VKClean:Make;VKPlayer:Make;VKComponents:Make;Project18:Make;RandomWall:Make;HGMComponents:Make;VKMessageApp:Make;VKBotTemplate:Make;VKParams:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
