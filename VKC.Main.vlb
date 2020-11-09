@@ -1,679 +1,705 @@
 ﻿[TabItemMFriends]
-Coordinates=900,1022,115,36
+Coordinates=1102,950,99,33
 
 [Circle1]
-Coordinates=835,1022,55,36
+Coordinates=315,1027,48,33
 
 [ButtonMenuPhotos]
-Coordinates=319,276,124,58
+Coordinates=438,488,109,51
 
 [LabelMenuGDocsCnt]
-Coordinates=1442,566,137,58
+Coordinates=311,950,118,51
 
 [LayoutDownload]
-Coordinates=715,1022,110,36
+Coordinates=1029,1027,97,33
 
 [Layout20]
-Coordinates=638,1022,67,36
+Coordinates=340,1204,59,33
 
 [TabItemMVideo]
-Coordinates=523,1022,105,36
+Coordinates=1139,1086,90,33
 
 [ShadowEffect1]
-Coordinates=1396,166,101,36
+Coordinates=1396,166,88,33
 
 [ButtonPhotosBack]
-Coordinates=139,498,120,58
+Coordinates=762,565,107,51
 
 [Circle2]
-Coordinates=458,1022,55,36
+Coordinates=484,1027,48,33
 
 [ListBoxItem12]
-Coordinates=352,1022,96,36
+Coordinates=1152,1027,84,33
 
 [ButtonMenuDocs]
-Coordinates=963,702,113,58
+Coordinates=1286,488,99,51
 
 [Label1]
-Coordinates=1128,276,53,58
+Coordinates=601,796,46,51
 
 [ShadowEffect3]
-Coordinates=1396,331,101,36
+Coordinates=1396,331,88,33
 
 [ListBoxFaves]
-Coordinates=606,10,139,256
+Coordinates=499,10,116,213
 
 [ButtonMenuVideo]
-Coordinates=732,770,117,58
+Coordinates=1429,873,102,51
 
 [ButtonMenuGroups]
-Coordinates=1512,498,126,58
+Coordinates=1145,565,111,51
 
 [LabelHeadAlbumsCnt]
-Coordinates=602,498,139,58
+Coordinates=1411,488,121,51
 
 [FloatAnimationPCFSY]
-Coordinates=1396,386,143,36
+Coordinates=1396,386,123,33
 
 [LabelVideoAlbumName]
-Coordinates=598,702,149,58
+Coordinates=404,719,129,51
 
 [LayoutClient]
-Coordinates=256,1022,86,36
+Coordinates=921,950,76,33
 
 [Layout7]
-Coordinates=186,1022,60,36
+Coordinates=1380,1027,53,33
 
 [LabelMenuNotesCnt]
-Coordinates=1603,634,131,58
+Coordinates=265,719,113,51
 
 [Layout9]
-Coordinates=116,1022,60,36
-
-[ButtonLogin]
-Coordinates=453,276,83,58
+Coordinates=737,950,53,33
 
 [LabelMenuGBoardCnt]
-Coordinates=1159,634,142,58
+Coordinates=10,950,123,51
 
 [ShadowEffect2]
-Coordinates=1396,606,101,36
+Coordinates=1396,606,88,33
 
 [ListBoxItem17]
-Coordinates=10,1022,96,36
+Coordinates=1584,1145,84,33
 
 [TabItemMPhotos]
-Coordinates=1895,976,112,36
+Coordinates=510,1204,97,33
 
 [LabelHeadFavesCnt]
-Coordinates=1787,498,131,58
+Coordinates=1653,796,112,51
 
 [Layout21]
-Coordinates=1818,976,67,36
+Coordinates=1689,1027,59,33
 
 [Label2]
-Coordinates=1222,498,53,58
+Coordinates=984,642,46,51
 
 [ButtonMenuWall]
-Coordinates=724,566,109,58
+Coordinates=938,488,95,51
 
 [LabelMenuFavesCnt]
-Coordinates=1841,566,133,58
+Coordinates=965,249,114,51
 
 [LayoutHead]
-Coordinates=1724,976,84,36
+Coordinates=1400,1145,73,33
 
 [TabItemMFaves]
-Coordinates=1607,976,107,36
+Coordinates=140,1086,91,33
 
 [Rectangle5]
-Coordinates=1517,976,80,36
+Coordinates=594,1086,69,33
 
 [Layout28]
-Coordinates=1440,976,67,36
+Coordinates=898,1145,59,33
 
 [Layout26]
-Coordinates=1363,976,67,36
+Coordinates=991,1204,59,33
 
 [Layout33]
-Coordinates=1286,976,67,36
+Coordinates=1761,1086,59,33
 
 [FloatAnimation2]
-Coordinates=1396,1156,108,36
+Coordinates=1396,1156,95,33
 
 [AniIndicator2]
-Coordinates=1186,976,90,36
+Coordinates=10,1263,80,33
 
 [ButtonAuthReset]
-Coordinates=1191,276,112,58
+Coordinates=518,873,99,51
 
 [ListBoxNotes]
-Coordinates=457,10,139,256
+Coordinates=1493,10,116,213
 
 [LabelMenuFriendsCnt]
-Coordinates=269,498,141,58
+Coordinates=457,565,122,51
 
 [ListBoxDialogs]
-Coordinates=308,10,139,256
+Coordinates=1067,10,116,213
 
 [FloatAnimation4]
-Coordinates=1396,1266,108,36
+Coordinates=1396,1266,95,33
 
 [ListBoxItem18]
-Coordinates=1080,976,96,36
+Coordinates=1195,1145,84,33
 
 [TabItemPhotosAlbums]
-Coordinates=926,976,144,36
+Coordinates=956,1263,126,33
 
 [ListBoxItem15]
-Coordinates=820,976,96,36
+Coordinates=1786,950,84,33
 
 [DateEdit1]
-Coordinates=303,770,138,58
+Coordinates=297,488,115,51
 
 [TabItemMGroup]
-Coordinates=702,976,108,36
+Coordinates=561,1145,93,33
 
 [ListBoxAudios]
-Coordinates=1500,10,139,256
+Coordinates=1635,10,116,213
 
 [Button13]
-Coordinates=391,702,66,58
+Coordinates=1473,796,58,51
 
 [CheckBoxWallSelect]
-Coordinates=859,770,134,58
+Coordinates=1718,642,116,51
 
 [TabControlMain]
-Coordinates=586,976,106,36
+Coordinates=1412,1204,92,33
 
 [ButtonMenuFriends]
-Coordinates=1750,702,127,58
+Coordinates=1424,642,111,51
 
 [LabelMenuDocsCnt]
-Coordinates=757,702,127,58
+Coordinates=1108,796,110,51
 
 [TabItemPhotosItems]
-Coordinates=443,976,133,36
+Coordinates=1161,1204,115,33
 
 [CheckBox3]
-Coordinates=910,276,80,58
+Coordinates=169,719,70,51
 
 [Rectangle3]
-Coordinates=353,976,80,36
+Coordinates=739,1263,69,33
 
 [Layout23]
-Coordinates=276,976,67,36
+Coordinates=689,1086,59,33
 
 [Layout27]
-Coordinates=199,976,67,36
+Coordinates=1340,1086,59,33
 
 [LabelMenuVideosCnt]
-Coordinates=156,770,137,58
+Coordinates=1697,565,119,51
 
 [Rectangle4]
-Coordinates=109,976,80,36
+Coordinates=95,1027,69,33
 
 [LabelHeadDialogsCnt]
-Coordinates=1009,634,140,58
+Coordinates=819,249,120,51
 
 [ListBoxItem1]
-Coordinates=10,976,89,36
+Coordinates=816,950,79,33
 
 [TabItemVideosAlbums]
-Coordinates=1968,930,144,36
+Coordinates=1538,1027,125,33
 
 [Layout12]
-Coordinates=1891,930,67,36
+Coordinates=668,1027,59,33
 
 [TabControlVideos]
-Coordinates=1763,930,118,36
+Coordinates=288,1263,103,33
 
 [LabelMenuGWallCnt]
-Coordinates=234,634,133,58
+Coordinates=1289,873,114,51
 
 [TabItemMDocs]
-Coordinates=1652,930,101,36
+Coordinates=417,1263,87,33
 
 [Layout17]
-Coordinates=1575,930,67,36
+Coordinates=10,1145,59,33
 
 [ListBoxPhotos]
-Coordinates=1351,10,139,256
+Coordinates=925,10,116,213
 
 [LabelHeadFriends]
-Coordinates=451,770,120,58
+Coordinates=643,873,103,51
 
 [ListBoxDocs]
-Coordinates=1202,10,139,256
+Coordinates=357,10,116,213
 
 [ListBoxItem2]
-Coordinates=1476,930,89,36
+Coordinates=1719,1204,79,33
 
 [Layout24]
-Coordinates=1399,930,67,36
+Coordinates=509,1086,59,33
 
 [TabItemMGroups]
-Coordinates=1275,930,114,36
+Coordinates=216,1145,99,33
 
 [AniIndicatorLoad]
-Coordinates=1154,930,111,36
+Coordinates=190,1027,99,33
 
 [Layout25]
-Coordinates=1077,930,67,36
+Coordinates=1510,1086,59,33
 
 [TabItemMSets]
-Coordinates=969,930,98,36
+Coordinates=1108,1263,84,33
 
 [Layout4]
-Coordinates=899,930,60,36
+Coordinates=1116,1145,53,33
 
 [TabItemVideosItems]
-Coordinates=757,930,132,36
+Coordinates=1694,1145,114,33
 
 [TabItemMAudio]
-Coordinates=642,930,105,36
-
-[ListBoxItem10]
-Coordinates=536,930,96,36
+Coordinates=223,1204,91,33
 
 [ListBoxWall]
-Coordinates=159,10,139,256
+Coordinates=10,249,116,213
 
 [AniIndicator1]
-Coordinates=436,930,90,36
+Coordinates=753,1027,80,33
 
 [TabItemMDialogs]
-Coordinates=311,930,115,36
+Coordinates=527,950,99,33
 
 [Label7]
-Coordinates=1139,770,53,58
+Coordinates=455,950,46,51
 
 [Layout16]
-Coordinates=234,930,67,36
+Coordinates=1834,1145,59,33
 
 [VKAPI]
-Coordinates=0,1564,52,36
+Coordinates=0,1564,45,33
 
 [StyleBook1]
-Coordinates=1578,496,80,36
+Coordinates=1578,496,70,33
 
 [Layout10]
-Coordinates=157,930,67,36
+Coordinates=859,1027,59,33
 
 [Layout22]
-Coordinates=80,930,67,36
+Coordinates=425,1204,59,33
 
 [Layout5]
-Coordinates=10,930,60,36
-
-[AniIndicatorLogin]
-Coordinates=1944,884,114,36
+Coordinates=530,1263,53,33
 
 [LabelHeadText]
-Coordinates=279,702,102,58
+Coordinates=1725,873,87,51
 
 [TabItemMBoard]
-Coordinates=1828,884,106,36
+Coordinates=1262,1027,92,33
 
 [ProgressBarDownload5]
-Coordinates=914,498,150,58
+Coordinates=643,719,131,51
 
 [Layout18]
-Coordinates=1751,884,67,36
+Coordinates=138,1204,59,33
 
 [ButtonMenu]
-Coordinates=751,498,84,58
+Coordinates=1791,796,74,51
 
 [Layout30]
-Coordinates=1674,884,67,36
+Coordinates=1774,1027,59,33
 
 [AniIndicatorLoadPage]
-Coordinates=1523,884,141,36
+Coordinates=879,1086,123,33
 
 [Layout31]
-Coordinates=1446,884,67,36
+Coordinates=1255,1086,59,33
 
 [ListBoxGroups]
-Coordinates=10,10,139,256
+Coordinates=10,10,116,213
+LayerNames=NewLayer0
+Visible=True
 
 [Layout13]
-Coordinates=1369,884,67,36
+Coordinates=944,1027,59,33
 
 [ListBoxItem5]
-Coordinates=1270,884,89,36
+Coordinates=183,1263,79,33
 
 [LabelHeadWallCnt]
-Coordinates=1887,702,122,58
+Coordinates=1282,565,104,51
 
 [Button14]
-Coordinates=793,634,66,58
+Coordinates=10,565,58,51
 
 [ListBoxVideos]
-Coordinates=1053,10,139,256
+Coordinates=1351,10,116,213
 
 [ListBoxItem14]
-Coordinates=1164,884,96,36
+Coordinates=1324,950,84,33
 
 [Label14]
-Coordinates=1771,566,60,58
+Coordinates=479,642,52,51
 
 [LabelMenuWallCnt]
-Coordinates=1161,566,123,58
+Coordinates=687,249,106,51
 
 [ImageListIcons]
-Coordinates=1578,1211,101,36
+Coordinates=1578,1211,89,33
 
 [Label3]
-Coordinates=1472,702,53,58
+Coordinates=10,873,46,51
 
 [TabItemMWelcome]
-Coordinates=1029,884,125,36
+Coordinates=983,1145,107,33
 
 [Layout15]
-Coordinates=952,884,67,36
+Coordinates=633,1204,59,33
 
 [TabItemMenuGroup]
-Coordinates=813,884,129,36
+Coordinates=1649,950,111,33
 
 [LabelAlbumName]
-Coordinates=440,634,116,58
+Coordinates=573,488,101,51
 Visible=True
 
 [DateEdit2]
-Coordinates=1881,634,138,58
+Coordinates=814,796,115,51
 
 [ButtonMenuSettings]
-Coordinates=869,634,130,58
+Coordinates=178,565,115,51
 
 [LabelHeadDocsCnt]
-Coordinates=1003,770,126,58
+Coordinates=1011,565,108,51
 
 [LabelMenuGDialogsCnt]
-Coordinates=843,566,151,58
+Coordinates=236,873,130,51
 
 [LabelHeadNotesCnt]
-Coordinates=515,566,130,58
+Coordinates=319,565,112,51
 
 [TabItemMWall]
-Coordinates=706,884,97,36
+Coordinates=718,1204,83,33
 
 [ButtonMenuMarket]
-Coordinates=1881,276,123,58
+Coordinates=800,719,107,51
 
 [FloatAnimationPCSize]
-Coordinates=1578,1486,143,36
+Coordinates=1578,1486,124,33
 
 [MultiViewMain]
-Coordinates=598,884,98,36
+Coordinates=1028,1086,85,33
 
 [LabelMenuAudiosCnt]
-Coordinates=546,276,137,58
+Coordinates=557,642,120,51
 
 [Image1]
-Coordinates=448,566,57,58
+Coordinates=10,796,49,51
 
 [LabelDownload]
-Coordinates=489,498,103,58
+Coordinates=895,565,90,51
 
 [ListBoxItem6]
-Coordinates=499,884,89,36
+Coordinates=404,1086,79,33
 
 [LabelGroupHead]
-Coordinates=236,566,112,58
+Coordinates=1173,719,97,51
 
 [Layout2]
-Coordinates=429,884,60,36
+Coordinates=1023,950,53,33
 
 [ButtonMenuAudio]
-Coordinates=1313,276,117,58
+Coordinates=952,873,103,51
 
 [Layout11]
-Coordinates=352,884,67,36
+Coordinates=652,950,59,33
 
 [LayoutGroups]
-Coordinates=247,884,95,36
+Coordinates=451,1145,84,33
 
 [Rectangle2]
-Coordinates=157,884,80,36
+Coordinates=1305,1145,69,33
 
 [LabelMenuGVideosCnt]
-Coordinates=10,566,147,58
+Coordinates=955,796,127,51
 
 [ListBoxUsers]
-Coordinates=904,10,139,256
+Coordinates=641,10,116,213
 
 [FloatAnimationPCFSS]
-Coordinates=1172,1674,143,36
+Coordinates=1172,1674,123,33
 
 [ButtonMenuDialogs]
-Coordinates=1744,634,127,58
+Coordinates=847,642,111,51
 
 [LabelHeadMarketCnt]
-Coordinates=1928,498,136,58
+Coordinates=1244,796,116,51
 
 [Label4]
-Coordinates=1724,498,53,58
+Coordinates=1558,488,46,51
 
 [Layout29]
-Coordinates=80,884,67,36
+Coordinates=1076,1204,59,33
 
 [Layout3]
-Coordinates=10,884,60,36
+Coordinates=912,1204,53,33
 
 [TabItemMMarket]
-Coordinates=1869,838,111,36
+Coordinates=95,1145,95,33
 
 [ProgressBarDownload4]
-Coordinates=1086,702,150,58
+Coordinates=605,565,131,51
 
 [Line1]
-Coordinates=1813,838,46,36
+Coordinates=116,1263,41,33
 
 [FloatAnimationAuthOpc]
-Coordinates=756,1674,150,36
+Coordinates=756,1674,132,33
 
 [DateEdit4]
-Coordinates=1294,566,138,58
+Coordinates=1296,719,115,51
 
 [FloatAnimation1]
-Coordinates=647,1674,108,36
+Coordinates=647,1674,95,33
 
 [LabelMenuGPhotosCnt]
-Coordinates=566,634,148,58
+Coordinates=82,873,128,51
 
 [CheckBox2]
-Coordinates=693,276,80,58
+Coordinates=856,873,70,51
 
 [VertScrollBoxMenuGroup]
-Coordinates=1643,838,160,36
+Coordinates=1595,1086,140,33
 
 [ButtonSavePhoto]
-Coordinates=10,702,114,58
+Coordinates=392,873,100,51
 
 [Button12]
-Coordinates=1648,498,66,58
+Coordinates=772,873,58,51
 
 [Button15]
-Coordinates=10,634,66,58
+Coordinates=94,565,58,51
 
 [LabelHeadGroups]
-Coordinates=10,498,119,58
+Coordinates=1160,873,103,51
 
 [ListBoxAlbums]
-Coordinates=1798,10,139,212
+Coordinates=444,249,116,177
 
 [LabelMenuPhotosCnt]
-Coordinates=1074,498,138,58
-
-[ListBoxItem9]
-Coordinates=1544,838,89,36
+Coordinates=333,642,120,51
 
 [ButtonMenuGroupBack]
-Coordinates=1285,498,148,58
+Coordinates=1059,488,129,51
 
 [ListBoxItem4]
-Coordinates=1445,838,89,36
+Coordinates=774,1086,79,33
 
 [LayoutPhotosCaption]
-Coordinates=1298,838,137,36
+Coordinates=257,1086,121,33
 
 [ListBoxItem16]
-Coordinates=1192,838,96,36
+Coordinates=1302,1204,84,33
 
 [TabControlPhotos]
-Coordinates=1064,838,118,36
+Coordinates=609,1263,104,33
 
 [Layout8]
-Coordinates=994,838,60,36
+Coordinates=1640,1204,53,33
 
 [TabItemMNotes]
-Coordinates=878,838,106,36
+Coordinates=781,1145,91,33
 
 [LabelMenuGMarketCnt]
-Coordinates=1440,276,147,58
+Coordinates=1021,719,126,51
 
 [Button10]
-Coordinates=134,702,66,58
+Coordinates=417,796,58,51
 
 [TabControlMenu]
-Coordinates=758,838,110,36
+Coordinates=834,1263,96,33
 
 [LabelHeadVideoAlbumsCnt]
-Coordinates=1589,566,172,58
+Coordinates=242,796,149,51
 
 [ButtonMenuFaves]
-Coordinates=1000,276,118,58
+Coordinates=1568,565,103,51
 
 [CheckBox1]
-Coordinates=358,566,80,58
+Coordinates=1557,796,70,51
 
 [Layout19]
-Coordinates=681,838,67,36
+Coordinates=1499,1145,59,33
 
 [VertScrollBoxMenu]
-Coordinates=546,838,125,36
+Coordinates=1859,1027,109,33
 
 [ListBoxMarket]
-Coordinates=755,10,139,256
+Coordinates=1209,10,116,213
 
 [DateEdit3]
-Coordinates=86,634,138,58
+Coordinates=673,796,115,51
 
 [ProgressBarDownload1]
-Coordinates=1202,770,150,58
+Coordinates=140,488,131,51
 
 [CheckBoxPhotoSelect]
-Coordinates=1535,702,142,58
+Coordinates=1056,642,124,51
 
 [Layout14]
-Coordinates=469,838,67,36
+Coordinates=1425,1086,59,33
 
 [ListBoxItem3]
-Coordinates=370,838,89,36
+Coordinates=1218,1263,79,33
 
 [ButtonMenuNotes]
-Coordinates=783,276,117,58
+Coordinates=1601,719,103,51
 
 [Layout6]
-Coordinates=300,838,60,36
+Coordinates=1459,1027,53,33
 
 [LayoutAuth]
-Coordinates=211,838,79,36
+Coordinates=1227,950,71,33
 
 [LabelMenuGAudiosCnt]
-Coordinates=1004,566,147,58
+Coordinates=784,488,128,51
 
 [FloatAnimationAuthPos]
-Coordinates=1759,551,149,36
+Coordinates=1759,551,131,33
 
 [LabelMenuGUsers]
-Coordinates=467,702,121,58
+Coordinates=10,488,104,51
 
 [ProgressBarDownload2]
-Coordinates=1721,276,150,58
+Coordinates=1561,642,131,51
 
 [TabItemMenuMain]
-Coordinates=80,838,121,36
+Coordinates=10,1086,104,33
 
 [ListBoxAudioPlaylists]
-Coordinates=10,276,139,212
+Coordinates=152,249,123,177
 
 [LabelHeadAudiosCnt]
-Coordinates=10,770,136,58
+Coordinates=1521,249,118,51
 
 [FloatAnimationPCFSX]
-Coordinates=1759,661,143,36
+Coordinates=1759,661,123,33
 
 [Label5]
-Coordinates=377,634,53,58
+Coordinates=1214,488,46,51
 
 [ImageListFileTypes]
-Coordinates=1759,716,126,36
+Coordinates=1759,716,109,33
 
 [Layout1]
-Coordinates=10,838,60,36
+Coordinates=1846,1086,53,33
 
 [CircleAvatar]
-Coordinates=1939,770,85,36
+Coordinates=680,1145,75,33
 
 [ListBoxItem11]
-Coordinates=1833,770,96,36
+Coordinates=1530,1204,84,33
 
 [Layout32]
-Coordinates=1756,770,67,36
+Coordinates=827,1204,59,33
 
 [ListBoxItem8]
-Coordinates=1657,770,89,36
+Coordinates=1824,1204,79,33
 
 [LabelMenuDialogsCnt]
-Coordinates=581,770,141,58
+Coordinates=1105,249,122,51
 
 [ListBoxItem13]
-Coordinates=1551,770,96,36
+Coordinates=341,1145,84,33
 
 [ProgressBarDownload3]
-Coordinates=159,276,150,58
+Coordinates=85,796,131,51
 
 [FloatAnimation3]
-Coordinates=1759,1101,108,36
+Coordinates=1759,1101,95,33
 
 [ListBoxItem7]
-Coordinates=1452,770,89,36
+Coordinates=1434,950,79,33
 
 [ListBoxVideoAlbums]
-Coordinates=1649,10,139,212
+Coordinates=301,249,117,177
 
 [Button7]
-Coordinates=655,566,59,58
+Coordinates=1206,642,53,51
 
 [LabelAudiosLoad]
-Coordinates=1597,276,114,58
+Coordinates=1665,249,100,51
 
 [Rectangle1]
-Coordinates=1362,770,80,36
+Coordinates=389,1027,69,33
 
 [LabelMenuGroupsCnt]
-Coordinates=1246,702,140,58
+Coordinates=10,642,121,51
 
 [ImageListControls]
-Coordinates=1759,1266,118,36
+Coordinates=1759,1266,104,33
 
 [LabelMenuMarketCnt]
-Coordinates=1380,634,137,58
+Coordinates=703,642,118,51
 
 [Button16]
-Coordinates=1396,702,66,58
+Coordinates=700,488,58,51
 
 []
-Coordinates=1759,1321,91,36
+Coordinates=1413,249,82,51
+Visible=True
 
 [ButtonMenuGroupWall]
-Coordinates=724,634,59,58
+Coordinates=159,950,126,51
 
 [ButtonMenuGroupDialogs]
-Coordinates=1311,634,59,58
+Coordinates=1557,873,142,51
 
 [ButtonMenuGroupPhotos]
-Coordinates=167,566,59,58
+Coordinates=1630,488,140,51
 
 [ButtonMenuGroupMembers]
-Coordinates=1443,498,59,58
+Coordinates=157,642,150,51
 
 [ButtonMenuGroupAudio]
-Coordinates=894,702,59,58
+Coordinates=1253,249,134,51
 
 [ButtonMenuGroupVideo]
-Coordinates=845,498,59,58
+Coordinates=10,719,133,51
 
 [ButtonMenuGroupMarket]
-Coordinates=1527,634,66,58
+Coordinates=1437,719,138,51
 
 [ButtonMenuGroupDocs]
-Coordinates=420,498,59,58
+Coordinates=1412,565,130,51
 
 [ButtonMenuGroupBoard]
-Coordinates=210,702,59,58
+Coordinates=1730,719,135,51
 
 [LabelHeadBoardCnt]
-Coordinates=1687,702,53,58
+Coordinates=1285,642,113,51
+
+[SwitchMenu]
+Coordinates=501,796,74,51
+
+[StyleBook2]
+Coordinates=1035,430,70,33
+
+[ListBoxItem20]
+Coordinates=558,1027,84,33
+
+[ListBoxBoard]
+Coordinates=783,10,116,213
+
+[ListBoxItem19]
+Coordinates=1539,950,84,33
+
+[Button1]
+Coordinates=1081,873,53,51
+
+[ImageListControlsW]
+Coordinates=1528,441,114,33
+
+[MemoLog]
+Coordinates=933,719,62,51
+
+[Layout34]
+Coordinates=10,1027,59,33
+
+[Button17]
+Coordinates=559,719,58,51
+
+[Module Settings]
+ModelLayerNames=NewLayer0
+ActiveLayerNames=NewLayer0
+EditingLayerName=NewLayer0
 

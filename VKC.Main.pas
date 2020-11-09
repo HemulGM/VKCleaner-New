@@ -7,9 +7,11 @@ uses
   FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.Effects, FMX.DialogService, FMX.Objects, FMX.TabControl, FMX.StdCtrls,
   FMX.Controls.Presentation, VK.API, VK.Components, VK.Types, FMX.MultiView, System.ImageList, FMX.ImgList, FMX.Layouts,
   FMX.Ani, FMX.ListBox, VK.Entity.Doc, VK.Entity.Audio, VK.Entity.Playlist, VK.Entity.Photo, VK.Entity.Album,
-  VK.Entity.User, VK.Entity.Group, VK.Entity.Video, VK.Entity.Market, VK.Entity.Fave, VK.Entity.Note, VK.Entity.Link,
+  VK.Entity.Profile, VK.Entity.Group, VK.Entity.Video, VK.Entity.Market, VK.Entity.Fave, VK.Entity.Note, VK.Entity.Link,
   VK.Entity.Message, VK.Entity.Conversation, VK.Entity.Media, FMX.DateTimeCtrls, VKC.SaveManager, HGM.FMX.ImagePreview,
-  FMX.ScrollBox, FMX.Memo, VK.Entity.Board;
+  FMX.ScrollBox, FMX.Memo, VK.Entity.Board, FMX.Edit, System.Actions, FMX.ActnList, Data.Bind.EngExt, Fmx.Bind.DBEngExt,
+  Data.Bind.Components, Fmx.Bind.GenData, Data.Bind.GenData, System.Rtti, System.Bindings.Outputs, Fmx.Bind.Editors,
+  Data.Bind.ObjectScope, System.Threading;
 
 type
   TFormMain = class(TForm)
@@ -45,9 +47,7 @@ type
     Rectangle1: TRectangle;
     Image1: TImage;
     Label1: TLabel;
-    ButtonLogin: TButton;
     FloatAnimationAuthPos: TFloatAnimation;
-    AniIndicatorLogin: TAniIndicator;
     TabItemMAudio: TTabItem;
     TabItemMVideo: TTabItem;
     TabItemMMarket: TTabItem;
@@ -155,8 +155,6 @@ type
     ListBoxItem8: TListBoxItem;
     ImageListIcons: TImageList;
     ListBoxGroups: TListBox;
-    ListBoxItem9: TListBoxItem;
-    ListBoxItem10: TListBoxItem;
     ListBoxAudioPlaylists: TListBox;
     ListBoxItem11: TListBoxItem;
     ListBoxItem12: TListBoxItem;
@@ -246,6 +244,17 @@ type
     ListBoxItem20: TListBoxItem;
     SwitchMenu: TSwitch;
     Button1: TButton;
+    StyleBook2: TStyleBook;
+    ImageListControlsW: TImageList;
+    Layout35: TLayout;
+    Label6: TLabel;
+    EditLogin: TEdit;
+    EditPassword: TEdit;
+    ButtonLogin: TButton;
+    AniIndicatorLogin: TAniIndicator;
+    ButtonLoginOAuth2: TButton;
+    AniIndicator3: TAniIndicator;
+    Label8: TLabel;
     procedure MultiViewMainShown(Sender: TObject);
     procedure MultiViewMainStartHiding(Sender: TObject);
     procedure ButtonMenuClick(Sender: TObject);
@@ -299,6 +308,8 @@ type
     procedure ButtonMenuGroupBoardClick(Sender: TObject);
     procedure SwitchMenuSwitch(Sender: TObject);
     procedure Button1Click(Sender: TObject);
+    procedure VKAPIErrorLogin(Sender: TObject; E: Exception; Code: Integer; Text: string);
+    procedure ButtonLoginOAuth2Click(Sender: TObject);
   private
     FCanManuAction: Boolean;
     FChangePasswordHash: string;
@@ -314,7 +325,8 @@ type
     function CreateAlbumListItem(Listbox: TListBox; Album: TVkPhotoAlbum): TListBoxItem;
     function CreateAudioListItem(Listbox: TListBox; Audio: TVkAudio): TListBoxItem;
     function CreateAudioPlaylistListItem(Listbox: TListBox; Playlist: TVkAudioPlaylist): TListBoxItem;
-    function CreateDialogListItem(Listbox: TListBox; Item: TVkConversationItem; Profile: TVkUser; Group: TVkGroup): TListBoxItem;
+    function CreateDialogListItem(Listbox: TListBox; Item: TVkConversationItem; Profile: TVkProfile; Group: TVkGroup):
+      TListBoxItem;
     function CreateDocListItem(Listbox: TListBox; Doc: TVkDocument): TListBoxItem;
     function CreateFaveListItem(Listbox: TListBox; Item: TVkFave): TListBoxItem;
     function CreateGroupListItem(Listbox: TListBox; Item: TVkGroup): TListBoxItem;
@@ -322,7 +334,7 @@ type
     function CreateNoteListItem(Listbox: TListBox; Item: TVkNote): TListBoxItem;
     function CreatePhotoListItem(Listbox: TListBox; Photo: TVkPhoto): TListBoxItem;
     function CreateProductListItem(Listbox: TListBox; Item: TVkProduct): TListBoxItem;
-    function CreateUserListItem(Listbox: TListBox; Item: TVkUser): TListBoxItem;
+    function CreateUserListItem(Listbox: TListBox; Item: TVkProfile): TListBoxItem;
     function CreateVideoAlbumListItem(Listbox: TListBox; Album: TVkVIdeoAlbum): TListBoxItem;
     function CreateVideoListItem(Listbox: TListBox; Item: TVkVideo): TListBoxItem;
     function CreateWallListItem(Listbox: TListBox; Item: TVkPost; Items: TVkPosts): TListBoxItem;
@@ -381,7 +393,7 @@ implementation
 uses
   System.IOUtils, HGM.Common.Download, VK.FMX.OAuth2, VK.Groups, VK.Friends, VK.Photos, VK.Video, VK.Audio, VK.Messages,
   VK.Docs, VK.Fave, VK.Notes, VK.Wall, VK.Market, VK.Entity.Common, VK.Board, VK.Entity.Board.Comment, VK.Handler,
-  VK.Notifications, VK.Entity.Notifications, VK.Entity.Photo.Upload;
+  VK.Notifications, VK.Entity.Notifications, VK.Entity.Photo.Upload, VK.Clients;
 
 {$R *.fmx}
 
@@ -431,13 +443,14 @@ begin
   if SwitchMenu.IsChecked then
   begin
     MultiViewMain.Mode := TMultiViewMode.Panel;
+    MultiViewMain.Margins.Right := 10;
     Padding.Left := 0;
     MultiViewMainShown(nil);
   end
   else
   begin
     MultiViewMain.Mode := TMultiViewMode.NavigationPane;
-    Padding.Left := 50;
+    Padding.Left := 60;
     MultiViewMainStartHiding(nil);
   end;
 end;
@@ -511,7 +524,7 @@ begin
   RectangleBG.Fill.Color := TAlphaColorRec.Black;
 
   RectangleImage.Parent := RectangleBG;
-  RectangleImage.Align := TAlignLayout.HorzCenter;
+  RectangleImage.Align := TAlignLayout.Center;
   RectangleImage.HitTest := False;
   RectangleImage.WrapMode := TImageWrapMode.Stretch;
   RectangleImage.Visible := False;
@@ -867,8 +880,10 @@ end;
 
 procedure TFormMain.ClearButtonGroups;
 begin
+  {$IFNDEF AUTOREFCOUNT}
   while LayoutGroups.ControlsCount > 0 do
     LayoutGroups.Controls[0].Free;
+  {$ENDIF}
   LayoutGroups.Height := 0;
 end;
 
@@ -899,27 +914,16 @@ begin
     Exit;
   LoadingStart;
   FGroupId := GroupID;
-  TThread.CreateAnonymousThread(
+  TTask.Run(
     procedure
     var
-      Users: TVkUsers;
-      Photos: TVkPhotos;
-      Videos: TVkVideos;
-      Audios: TVkAudios;
-      Docs: TVkDocuments;
-      Topics: TVkBoardTopics;
+      Users: TVkProfiles;
       Conves: TVkConversationItems;
       Posts: TVkPosts;
-      Products: TVkProducts;
+      Groups: TVkGroups;
       UParams: TVkParamsGroupsGetMembers;
-      PParams: TVkParamsPhotosGetAll;
-      VParams: TVkParamsVideoGet;
-      AParams: TVkParamsAudioGet;
       MParams: TVkParamsConversationsGet;
-      DParams: TVkParamsDocsGet;
-      BParams: TVkParamsBoardGet;
       WParams: TVkParamsWallGet;
-      MtParams: TVkParamsMarketGet;
     begin
       LabelMenuGUsers.Text := '';
       LabelMenuGPhotosCnt.Text := '';
@@ -930,6 +934,33 @@ begin
       LabelMenuGWallCnt.Text := '';
       LabelMenuGBoardCnt.Text := '';
       LabelMenuGDocsCnt.Text := '';
+
+      if VKAPI.Groups.GetById(Groups, GroupID, [gfCounters]) then
+      begin
+        TThread.ForceQueue(nil,
+          procedure
+          begin
+            if Assigned(Groups.Items[0].Counters) then
+            begin
+              LabelMenuGPhotosCnt.Text := Groups.Items[0].Counters.Photos.ToString;
+              LabelMenuGVideosCnt.Text := Groups.Items[0].Counters.Videos.ToString;
+              LabelMenuGAudiosCnt.Text := Groups.Items[0].Counters.Audios.ToString;
+              LabelMenuGDocsCnt.Text := Groups.Items[0].Counters.Docs.ToString;
+              LabelMenuGBoardCnt.Text := Groups.Items[0].Counters.Topics.ToString;
+              LabelMenuGMarketCnt.Text := Groups.Items[0].Counters.Market.ToString;
+            end;
+            Groups.Free;
+          end);
+      end
+      else
+      begin
+        LabelMenuGPhotosCnt.Text := '-';
+        LabelMenuGVideosCnt.Text := '-';
+        LabelMenuGAudiosCnt.Text := '-';
+        LabelMenuGDocsCnt.Text := '-';
+        LabelMenuGBoardCnt.Text := '-';
+        LabelMenuGMarketCnt.Text := '-';
+      end;
 
       UParams.GroupId(GroupID);
       UParams.Count(1);
@@ -943,43 +974,6 @@ begin
           end);
       end;
 
-      PParams.OwnerId(-GroupID);
-      PParams.Count(1);
-      PParams.NoServiceAlbums(False);
-      if VKAPI.Photos.GetAll(Photos, PParams) then
-      begin
-        TThread.ForceQueue(nil,
-          procedure
-          begin
-            LabelMenuGPhotosCnt.Text := Photos.Count.ToString;
-            Photos.Free;
-          end);
-      end;
-
-      VParams.OwnerId(-GroupID);
-      VParams.Count(1);
-      if VKAPI.Video.Get(Videos, VParams) then
-      begin
-        TThread.ForceQueue(nil,
-          procedure
-          begin
-            LabelMenuGVideosCnt.Text := Videos.Count.ToString;
-            Videos.Free;
-          end);
-      end;
-
-      AParams.OwnerId(-GroupID);
-      AParams.Count(1);
-      if VKAPI.Audio.Get(Audios, AParams) then
-      begin
-        TThread.ForceQueue(nil,
-          procedure
-          begin
-            LabelMenuGAudiosCnt.Text := Audios.Count.ToString;
-            Audios.Free;
-          end);
-      end;
-
       MParams.GroupId(GroupID);
       MParams.Count(1);
       if VKAPI.Messages.GetConversations(Conves, MParams) then
@@ -990,31 +984,9 @@ begin
             LabelMenuGDialogsCnt.Text := Conves.Count.ToString;
             Conves.Free;
           end);
-      end;
-
-      DParams.OwnerId(-GroupID);
-      DParams.Count(1);
-      if VKAPI.Docs.Get(Docs, DParams) then
-      begin
-        TThread.ForceQueue(nil,
-          procedure
-          begin
-            LabelMenuGDocsCnt.Text := Docs.Count.ToString;
-            Docs.Free;
-          end);
-      end;
-
-      BParams.GroupId(GroupID);
-      BParams.Count(1);
-      if VKAPI.Board.GetTopics(Topics, BParams) then
-      begin
-        TThread.ForceQueue(nil,
-          procedure
-          begin
-            LabelMenuGBoardCnt.Text := Topics.Count.ToString;
-            Topics.Free;
-          end);
-      end;
+      end
+      else
+        LabelMenuGDialogsCnt.Text := '-';
 
       WParams.OwnerId(-GroupID);
       WParams.Count(1);
@@ -1028,24 +1000,12 @@ begin
           end);
       end;
 
-      MtParams.OwnerId(-GroupID);
-      MtParams.Count(1);
-      if VKAPI.Market.Get(Products, MtParams) then
-      begin
-        TThread.ForceQueue(nil,
-          procedure
-          begin
-            LabelMenuGMarketCnt.Text := Products.Count.ToString;
-            Products.Free;
-          end);
-      end;
-
       TThread.ForceQueue(nil,
         procedure
         begin
           LoadingStop;
         end);
-    end).Start;
+    end);
 end;
 
 procedure TFormMain.ButtonGroupClick(Sender: TObject);
@@ -1068,7 +1028,7 @@ begin
   begin
     Parent := LayoutGroups;
     StyleLookup := 'drawertoolbuttonmultiview';
-    Images := ImageListControls;
+    Images := ImageListControlsW;
     ImageIndex := 10;
 
     if not APhoto.IsEmpty then
@@ -1164,10 +1124,27 @@ end;
 
 procedure TFormMain.ButtonLoginClick(Sender: TObject);
 begin
-  VKAPI.Login;
   ButtonLogin.Enabled := False;
   AniIndicatorLogin.Enabled := True;
   AniIndicatorLogin.Visible := True;
+  //VKAPI.Login; // '+79512202848', 'IdidNAH009',
+  VKAPI.Application := TVkApplicationData.Android;
+  VKAPI.Login(EditLogin.Text, EditPassword.Text,
+    function(const ValidationType: TVkValidationType; var Code: string; var Remember: Boolean): Boolean
+    begin
+      Code := InputBox('Двухэтапная авторизация', 'Введите код', '');
+      Remember := True;
+      Result := not Code.IsEmpty;
+    end);
+end;
+
+procedure TFormMain.ButtonLoginOAuth2Click(Sender: TObject);
+begin
+  ButtonLogin.Enabled := False;
+  AniIndicatorLogin.Enabled := True;
+  AniIndicatorLogin.Visible := True;
+  VKAPI.Application := TVkApplicationData.VKAdmin;
+  VKAPI.Login;
 end;
 
 procedure TFormMain.ButtonMenuAudioClick(Sender: TObject);
@@ -1183,11 +1160,11 @@ begin
   if not ListBoxFaves.Visible then
     Exit;
   ListBoxFaves.Visible := False;
-  ListBoxFaves.Clear;
   ListBoxFaves.BeginUpdate;
+  ListBoxFaves.Clear;
   LabelHeadFavesCnt.Text := 'Закладки';
   LoadingPage;
-  TThread.CreateAnonymousThread(
+  TTask.Run(
     procedure
     var
       Cnt: Integer;
@@ -1227,7 +1204,7 @@ begin
           ListBoxFaves.Visible := True;
           LoadingPageEnd;
         end);
-    end).Start;
+    end);
 end;
 
 procedure TFormMain.ButtonMenuFavesClick(Sender: TObject);
@@ -1255,11 +1232,11 @@ begin
   if not ListBoxDialogs.Visible then
     Exit;
   ListBoxDialogs.Visible := False;
-  ListBoxDialogs.Clear;
   ListBoxDialogs.BeginUpdate;
+  ListBoxDialogs.Clear;
   LabelHeadDialogsCnt.Text := 'Диалоги';
   LoadingPage;
-  TThread.CreateAnonymousThread(
+  TTask.Run(
     procedure
     var
       Cnt: Integer;
@@ -1272,7 +1249,7 @@ begin
           Items: TVkConversationItems;
           Params: TVkParamsConversationsGet;
           UserId: Integer;
-          User: TVkUser;
+          User: TVkProfile;
           Group: TVkGroup;
         begin
           Result := 0;
@@ -1320,7 +1297,7 @@ begin
           ListBoxDialogs.Visible := True;
           LoadingPageEnd;
         end);
-    end).Start;
+    end);
 end;
 
 procedure TFormMain.ButtonMenuDialogsClick(Sender: TObject);
@@ -1348,10 +1325,13 @@ begin
   end;
 end;
 
-function TFormMain.CreateDialogListItem(Listbox: TListBox; Item: TVkConversationItem; Profile: TVkUser; Group: TVkGroup):
-  TListBoxItem;
+function TFormMain.CreateDialogListItem(Listbox: TListBox; Item: TVkConversationItem; Profile: TVkProfile; Group:
+  TVkGroup): TListBoxItem;
+var
+  ItemLink: TListBoxItem;
 begin
   Result := TListBoxItem.Create(Listbox);
+  ItemLink := Result;
   if Assigned(Item.LastMessage) then
   begin
     Result.ItemData.Detail := Item.LastMessage.Text + ' ' + FormatDateTime('c', Item.LastMessage.Date);
@@ -1363,7 +1343,15 @@ begin
       if Assigned(Profile) then
       begin
         Result.ItemData.Text := Profile.GetFullName;
-        Result.ItemData.Bitmap.LoadFromUrlAsync(Profile.Photo50);
+        Result.ItemData.Bitmap.LoadFromUrlAsync(Profile.Photo50, True,
+          procedure(Image: TBitmap)
+          begin
+            if Assigned(ItemLink) then
+            begin
+              ItemLink.ImageIndex := 0;
+              ItemLink.ImageIndex := -1;
+            end;
+          end);
       end;
     end
     else
@@ -1371,14 +1359,30 @@ begin
       if Assigned(Group) then
       begin
         Result.ItemData.Text := Group.Name;
-        Result.ItemData.Bitmap.LoadFromUrlAsync(Group.Photo50);
+        Result.ItemData.Bitmap.LoadFromUrlAsync(Group.Photo50, True,
+          procedure(Image: TBitmap)
+          begin
+            if Assigned(ItemLink) then
+            begin
+              ItemLink.ImageIndex := 0;
+              ItemLink.ImageIndex := -1;
+            end;
+          end);
       end;
     end;
   end
   else
   begin
     Result.ItemData.Text := Item.Conversation.ChatSettings.Title;
-    Result.ItemData.Bitmap.LoadFromUrlAsync(Item.Conversation.ChatSettings.Photo.Photo50);
+    Result.ItemData.Bitmap.LoadFromUrlAsync(Item.Conversation.ChatSettings.Photo.Photo50, True,
+      procedure(Image: TBitmap)
+      begin
+        if Assigned(ItemLink) then
+        begin
+          ItemLink.ImageIndex := 0;
+          ItemLink.ImageIndex := -1;
+        end;
+      end);
   end;
 end;
 
@@ -1534,9 +1538,12 @@ begin
   end;
 end;
 
-function TFormMain.CreateUserListItem(Listbox: TListBox; Item: TVkUser): TListBoxItem;
+function TFormMain.CreateUserListItem(Listbox: TListBox; Item: TVkProfile): TListBoxItem;
+var
+  ItemLink: TListBoxItem;
 begin
   Result := TListBoxItem.Create(Listbox);
+  ItemLink := Result;
   if not Item.Status.IsEmpty then
     Result.ItemData.Detail := Item.Status
   else if Length(Item.Career) > 0 then
@@ -1544,15 +1551,36 @@ begin
   else
     Result.ItemData.Detail := Item.City.Title;
   Result.ItemData.Text := Item.GetFullName;
-  Result.ItemData.Bitmap.LoadFromUrlAsync(Item.Photo50);
+  Result.ItemData.Bitmap.LoadFromUrlAsync(Item.Photo50, True,
+    procedure(Image: TBitmap)
+    begin
+      if Assigned(ItemLink) then
+      begin
+        ItemLink.ImageIndex := 0;
+        ItemLink.ImageIndex := -1;
+      end;
+    end);
 end;
 
 function TFormMain.CreateAudioListItem(Listbox: TListBox; Audio: TVkAudio): TListBoxItem;
+var
+  ItemLink: TListBoxItem;
 begin
   Result := TListBoxItem.Create(Listbox);
+  ItemLink := Result;
   Result.ItemData.Detail := Audio.Artist;
   Result.ItemData.Text := Audio.Title;
-  Result.ImageIndex := 33;
+  //Result.ImageIndex := 33;
+  if Assigned(Audio.Album) and Assigned(Audio.Album.Thumb) then
+    Result.ItemData.Bitmap.LoadFromUrlAsync(Audio.Album.Thumb.Photo68, True,
+      procedure(Image: TBitmap)
+      begin
+        if Assigned(ItemLink) then
+        begin
+          ItemLink.ImageIndex := 0;
+          ItemLink.ImageIndex := -1;
+        end;
+      end);
 end;
 
 function TFormMain.CreateBoardListItem(Listbox: TListBox; Item: TVkBoardTopic): TListBoxItem;
@@ -1563,11 +1591,23 @@ begin
 end;
 
 function TFormMain.CreateGroupListItem(Listbox: TListBox; Item: TVkGroup): TListBoxItem;
+var
+  ItemLink: TListBoxItem;
 begin
   Result := TListBoxItem.Create(Listbox);
+  ItemLink := Result;
   Result.ItemData.Detail := Item.Description;
+  //Item.
   Result.ItemData.Text := Item.Name;
-  Result.ItemData.Bitmap.LoadFromUrlAsync(Item.Photo50);
+  Result.ItemData.Bitmap.LoadFromUrlAsync(Item.Photo50, True,
+    procedure(Image: TBitmap)
+    begin
+      if Assigned(ItemLink) then
+      begin
+        ItemLink.ImageIndex := 0;
+        ItemLink.ImageIndex := -1;
+      end;
+    end);
 end;
 
 function TFormMain.CreateAudioPlaylistListItem(Listbox: TListBox; Playlist: TVkAudioPlaylist): TListBoxItem;
@@ -1628,7 +1668,7 @@ begin
   LabelTitle.StyledSettings := [];
   LabelTitle.Font.Size := 13;
   LabelTitle.Font.Style := [TFontStyle.fsBold];
-  LabelTitle.TextSettings.FontColor := TAlphaColorRec.Black;
+  LabelTitle.TextSettings.FontColor := TAlphaColorRec.White;
 
   if Playlist.Count > 0 then
   begin
@@ -1643,7 +1683,7 @@ begin
     LabelSize.Font.Size := 13;
     LabelSize.Text := Playlist.Count.ToString;
     LabelSize.StyledSettings := [];
-    LabelSize.TextSettings.FontColor := TAlphaColorRec.Black;
+    LabelSize.TextSettings.FontColor := TAlphaColorRec.White;
   end;
   Result.RecalcAbsoluteNow;
 end;
@@ -1655,10 +1695,10 @@ begin
   LabelAudiosLoad.Visible := False;
   LabelHeadAudiosCnt.Text := 'Музыка';
   ListBoxAudios.Visible := False;
-  ListBoxAudios.Clear;
   ListBoxAudios.BeginUpdate;
+  ListBoxAudios.Clear;
   LoadingPage;
-  TThread.CreateAnonymousThread(
+  TTask.Run(
     procedure
     var
       Cnt: Integer;
@@ -1701,7 +1741,7 @@ begin
           ListBoxAudios.Visible := True;
           LoadingPageEnd;
         end);
-    end).Start;
+    end);
 end;
 
 procedure TFormMain.LoadBoard;
@@ -1710,10 +1750,10 @@ begin
     Exit;
   LabelHeadBoardCnt.Text := 'Обсуждения';
   ListBoxBoard.Visible := False;
-  ListBoxBoard.Clear;
   ListBoxBoard.BeginUpdate;
+  ListBoxBoard.Clear;
   LoadingPage;
-  TThread.CreateAnonymousThread(
+  TTask.Run(
     procedure
     var
       Cnt: Integer;
@@ -1753,7 +1793,7 @@ begin
           ListBoxBoard.Visible := True;
           LoadingPageEnd;
         end);
-    end).Start;
+    end);
 end;
 
 procedure TFormMain.LoadVideoAlbums;
@@ -1761,12 +1801,12 @@ begin
   if not ListBoxVideoAlbums.Visible then
     Exit;
   ListBoxVideoAlbums.Visible := False;
-  ListBoxVideoAlbums.Clear;
   ListBoxVideoAlbums.BeginUpdate;
+  ListBoxVideoAlbums.Clear;
   LabelHeadVideoAlbumsCnt.Text := 'Видеоальбомы';
   TabControlVideos.ActiveTab := TabItemVideosAlbums;
   LoadingPage;
-  TThread.CreateAnonymousThread(
+  TTask.Run(
     procedure
     var
       Items: TVkVideoAlbums;
@@ -1800,7 +1840,7 @@ begin
           ListBoxVideoAlbums.Visible := True;
           LoadingPageEnd;
         end);
-    end).Start;
+    end);
 end;
 
 procedure TFormMain.LoadMarket;
@@ -1808,12 +1848,12 @@ begin
   if not ListBoxMarket.Visible then
     Exit;
   ListBoxMarket.Visible := False;
-  ListBoxMarket.Clear;
   ListBoxMarket.BeginUpdate;
+  ListBoxMarket.Clear;
   LabelHeadMarketCnt.Text := 'Товары';
   TabControlVideos.ActiveTab := TabItemVideosAlbums;
   LoadingPage;
-  TThread.CreateAnonymousThread(
+  TTask.Run(
     procedure
     var
       Items: TVkProducts;
@@ -1848,7 +1888,7 @@ begin
           ListBoxMarket.Visible := True;
           LoadingPageEnd;
         end);
-    end).Start;
+    end);
 end;
 
 procedure TFormMain.LoadAudioPlaylists;
@@ -1857,10 +1897,10 @@ begin
     Exit;
   ListBoxAudioPlaylists.Tag := 10;
   ListBoxAudioPlaylists.Visible := False;
-  ListBoxAudioPlaylists.Clear;
   ListBoxAudioPlaylists.BeginUpdate;
+  ListBoxAudioPlaylists.Clear;
   LoadingPage;
-  TThread.CreateAnonymousThread(
+  TTask.Run(
     procedure
     var
       Cnt: Integer;
@@ -1903,7 +1943,7 @@ begin
           ListBoxAudioPlaylists.Visible := Cnt > 0;
           LoadingPageEnd;
         end);
-    end).Start;
+    end);
 end;
 
 procedure TFormMain.LoadNotes;
@@ -1911,11 +1951,11 @@ begin
   if not ListBoxNotes.Visible then
     Exit;
   ListBoxNotes.Visible := False;
-  ListBoxNotes.Clear;
   ListBoxNotes.BeginUpdate;
-  LabelHeadDocsCnt.Text := 'Заметки';
+  ListBoxNotes.Clear;
+  LabelHeadNotesCnt.Text := 'Заметки';
   LoadingPage;
-  TThread.CreateAnonymousThread(
+  TTask.Run(
     procedure
     var
       Cnt: Integer;
@@ -1949,13 +1989,13 @@ begin
       TThread.ForceQueue(nil,
         procedure
         begin
-          LabelHeadDocsCnt.Text := 'Заметки (' + Cnt.ToString + ')';
-          LabelHeadDocsCnt.Repaint;
+          LabelHeadNotesCnt.Text := 'Заметки (' + Cnt.ToString + ')';
+          LabelHeadNotesCnt.Repaint;
           ListBoxNotes.EndUpdate;
           ListBoxNotes.Visible := True;
           LoadingPageEnd;
         end);
-    end).Start;
+    end);
 end;
 
 procedure TFormMain.LoadDocs;
@@ -1963,10 +2003,10 @@ begin
   if not ListBoxDocs.Visible then
     Exit;
   ListBoxDocs.Visible := False;
-  ListBoxDocs.Clear;
   ListBoxDocs.BeginUpdate;
+  ListBoxDocs.Clear;
   LoadingPage;
-  TThread.CreateAnonymousThread(
+  TTask.Run(
     procedure
     var
       Cnt: Integer;
@@ -2008,7 +2048,7 @@ begin
           ListBoxDocs.Visible := True;
           LoadingPageEnd;
         end);
-    end).Start;
+    end);
 end;
 
 procedure TFormMain.LoadGroups;
@@ -2017,10 +2057,10 @@ begin
     Exit;
   LabelHeadGroups.Text := 'Сообщества';
   ListBoxGroups.Visible := False;
-  ListBoxGroups.Clear;
   ListBoxGroups.BeginUpdate;
+  ListBoxGroups.Clear;
   LoadingPage;
-  TThread.CreateAnonymousThread(
+  TTask.Run(
     procedure
     var
       Cnt: Integer;
@@ -2060,7 +2100,7 @@ begin
           ListBoxGroups.Visible := True;
           LoadingPageEnd;
         end);
-    end).Start;
+    end);
 end;
 
 procedure TFormMain.LoadFriends;
@@ -2069,10 +2109,10 @@ begin
     Exit;
   LabelHeadFriends.Text := 'Друзья';
   ListBoxUsers.Visible := False;
-  ListBoxUsers.Clear;
   ListBoxUsers.BeginUpdate;
+  ListBoxUsers.Clear;
   LoadingPage;
-  TThread.CreateAnonymousThread(
+  TTask.Run(
     procedure
     var
       Cnt: Integer;
@@ -2081,14 +2121,14 @@ begin
       VKAPI.Walk(
         function(Offset: Integer; var Cancel: Boolean): Integer
         var
-          Item: TVkUser;
-          Items: TVkUsers;
+          Item: TVkProfile;
+          Items: TVkProfiles;
           Params: TVkParamsFriendsGet;
         begin
           Result := 0;
           Params.Count(100);
           Params.Offset(Offset);
-          Params.Fields([ffNickName, ffUniversities, ffStatus, ffCity, ffPhoto50]);
+          Params.Fields([ufNickName, ufUniversities, ufStatus, ufCity, ufPhoto50]);
           if VKAPI.Friends.Get(Items, Params) then
           begin
             Cnt := Items.Count;
@@ -2112,7 +2152,7 @@ begin
           ListBoxUsers.Visible := True;
           LoadingPageEnd;
         end);
-    end).Start;
+    end);
 end;
 
 procedure TFormMain.ButtonMenuDocsClick(Sender: TObject);
@@ -2188,12 +2228,12 @@ begin
   if not ListBoxWall.Visible then
     Exit;
   ListBoxWall.Visible := False;
-  ListBoxWall.Clear;
   CheckBoxWallSelect.IsChecked := False;
   ListBoxWall.BeginUpdate;
+  ListBoxWall.Clear;
   LabelHeadWallCnt.Text := 'Записи на стене';
   LoadingPage;
-  TThread.CreateAnonymousThread(
+  TTask.Run(
     procedure
     var
       Cnt: Integer;
@@ -2237,7 +2277,7 @@ begin
           ListBoxWall.Visible := True;
           LoadingPageEnd;
         end);
-    end).Start;
+    end);
 end;
 
 procedure TFormMain.ButtonPhotosBackClick(Sender: TObject);
@@ -2318,11 +2358,11 @@ begin
   if not ListBoxVideos.Visible then
     Exit;
   ListBoxVideos.Visible := False;
-  ListBoxVideos.Clear;
   ListBoxVideos.BeginUpdate;
+  ListBoxVideos.Clear;
   LabelVideoAlbumName.Text := AlbumName;
   LoadingPage;
-  TThread.CreateAnonymousThread(
+  TTask.Run(
     procedure
     var
       Cnt: Integer;
@@ -2366,20 +2406,20 @@ begin
           ListBoxVideos.Visible := True;
           LoadingPageEnd;
         end);
-    end).Start;
+    end);
 end;
 
 procedure TFormMain.LoadPhotos;
 begin
   if not ListBoxPhotos.Visible then
     Exit;
-  ListBoxPhotos.Visible := False;
-  ListBoxPhotos.Clear;
   CheckBoxPhotoSelect.IsChecked := False;
+  ListBoxPhotos.Visible := False;
   ListBoxPhotos.BeginUpdate;
+  ListBoxPhotos.Clear;
   LabelAlbumName.Text := AlbumName;
   LoadingPage;
-  TThread.CreateAnonymousThread(
+  TTask.Run(
     procedure
     var
       Cnt: Integer;
@@ -2421,7 +2461,7 @@ begin
           ListBoxPhotos.Visible := True;
           LoadingPageEnd;
         end);
-    end).Start;
+    end);
 end;
 
 procedure TFormMain.LoadMembers(const GroupID: Integer);
@@ -2430,10 +2470,10 @@ begin
     Exit;
   LabelHeadFriends.Text := 'Подписчики';
   ListBoxUsers.Visible := False;
-  ListBoxUsers.Clear;
   ListBoxUsers.BeginUpdate;
+  ListBoxUsers.Clear;
   LoadingPage;
-  TThread.CreateAnonymousThread(
+  TTask.Run(
     procedure
     var
       Cnt: Integer;
@@ -2442,8 +2482,8 @@ begin
       VKAPI.Walk(
         function(Offset: Integer; var Cancel: Boolean): Integer
         var
-          Item: TVkUser;
-          Items: TVkUsers;
+          Item: TVkProfile;
+          Items: TVkProfiles;
           Params: TVkParamsGroupsGetMembers;
         begin
           Result := 0;
@@ -2474,7 +2514,7 @@ begin
           ListBoxUsers.Visible := True;
           LoadingPageEnd;
         end);
-    end).Start;
+    end);
 end;
 
 procedure TFormMain.LoadAlbums;
@@ -2482,15 +2522,15 @@ begin
   if not ListBoxAlbums.Visible then
     Exit;
   ListBoxAlbums.Visible := False;
-  ListBoxAlbums.Clear;
   ListBoxAlbums.BeginUpdate;
+  ListBoxAlbums.Clear;
   if (OwnerId <> 0) and (OwnerId < 0) then
     ListBoxAlbums.Tag := 1
   else
     ListBoxAlbums.Tag := 0;
   TabControlPhotos.ActiveTab := TabItemPhotosAlbums;
   LoadingPage;
-  TThread.CreateAnonymousThread(
+  TTask.Run(
     procedure
     var
       Albums: TVkPhotoAlbums;
@@ -2526,7 +2566,7 @@ begin
           ListBoxAlbums.Visible := True;
           LoadingPageEnd;
         end);
-    end).Start;
+    end);
 end;
 
 procedure TFormMain.ButtonMenuSettingsClick(Sender: TObject);
@@ -2619,8 +2659,13 @@ end;
 procedure TFormMain.ListBoxPhotosClick(Sender: TObject);
 begin
   FPreviewImage.Image.Bitmap := nil;
+  FPreviewImage.IsLoading := True;
   if Assigned(ListBoxPhotos.Selected) then
-    FPreviewImage.Image.LoadFromUrl(ListBoxPhotos.Selected.TagString);
+    FPreviewImage.Image.LoadFromUrl(ListBoxPhotos.Selected.TagString,
+      procedure(Image: TImage)
+      begin
+        FPreviewImage.IsLoading := False;
+      end);
   FPreviewImage.Show(Self);
 end;
 
@@ -2688,16 +2733,16 @@ end;
 procedure TFormMain.LoadInfo;
 begin
   LoadingStart;
-  TThread.CreateAnonymousThread(
+  TTask.Run(
     procedure
     var
       i: Integer;
       Photo: TBitmap;
-      User: TVkUser;
+      User: TVkProfile;
       Faves: TVkFaves;
       Notes: TVkNotes;
       Posts: TVkPosts;
-      Friends: TVkUsers;
+      Friends: TVkProfiles;
       Photos: TVkPhotos;
       Videos: TVkVideos;
       Audios: TVkAudios;
@@ -2898,7 +2943,7 @@ begin
         begin
           LoadingStop;
         end);
-    end).Start;
+    end);
 end;
 
 procedure TFormMain.MultiViewMainHidden(Sender: TObject);
@@ -2925,6 +2970,7 @@ begin
       ButtonLogin.Enabled := True;
       AniIndicatorLogin.Enabled := False;
       AniIndicatorLogin.Visible := False;
+      ShowMessage(Url);
     end);
 end;
 
@@ -2957,6 +3003,14 @@ end;
 procedure TFormMain.VKAPIError(Sender: TObject; E: Exception; Code: Integer; Text: string);
 begin
   MemoLog.Lines.Add('Error: ' + FormatDateTime('c Z', Now) + ' ' + Code.ToString + ' - ' + Text);
+end;
+
+procedure TFormMain.VKAPIErrorLogin(Sender: TObject; E: Exception; Code: Integer; Text: string);
+begin
+  ButtonLogin.Enabled := True;
+  AniIndicatorLogin.Enabled := False;
+  AniIndicatorLogin.Visible := False;
+  ShowMessage(Text);
 end;
 
 procedure TFormMain.VKAPILog(Sender: TObject; const Value: string);
