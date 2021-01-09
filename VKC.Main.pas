@@ -481,7 +481,7 @@ begin
   RectangleImage.Visible := False;
   if Assigned(Photo.Sizes.GetSizeMax('x', True)) then
   begin
-    RectangleImage.LoadFromUrl(Photo.Sizes.GetSizeMax('x', True).URL,
+    RectangleImage.LoadFromUrlAsync(Photo.Sizes.GetSizeMax('x', True).URL,
       procedure(Image: TImage)
       begin
         if Assigned(RectangleImage.Bitmap) and (not RectangleImage.Bitmap.IsEmpty) then
@@ -530,7 +530,7 @@ begin
   RectangleImage.Visible := False;
   if Assigned(Item.Image) then
   begin
-    RectangleImage.LoadFromUrl(Item.Image[High(Item.Image)].URL,
+    RectangleImage.LoadFromUrlAsync(Item.Image[High(Item.Image)].URL,
       procedure(Image: TImage)
       begin
         if Assigned(RectangleImage.Bitmap) and (not RectangleImage.Bitmap.IsEmpty) then
@@ -587,7 +587,7 @@ begin
   RectangleImage.Visible := False;
   if not Item.ThumbPhoto.IsEmpty then
   begin
-    RectangleImage.LoadFromUrl(Item.ThumbPhoto,
+    RectangleImage.LoadFromUrlAsync(Item.ThumbPhoto,
       procedure(Image: TImage)
       begin
         if Assigned(RectangleImage.Bitmap) and (not RectangleImage.Bitmap.IsEmpty) then
@@ -688,7 +688,7 @@ begin
   RectangleImage.Visible := False;
   if Length(Album.Image) > 0 then
   begin
-    RectangleImage.LoadFromUrl(Album.Image[High(Album.Image)].Url,
+    RectangleImage.LoadFromUrlAsync(Album.Image[High(Album.Image)].Url,
       procedure(Image: TImage)
       begin
         if Assigned(RectangleImage.Bitmap) and (not RectangleImage.Bitmap.IsEmpty) then
@@ -794,7 +794,7 @@ begin
   RectangleImage.Visible := False;
   if Assigned(Album.Sizes.GetSizeMax('x')) then
   begin
-    RectangleImage.LoadFromUrl(Album.Sizes.GetSizeMax('x').Src,
+    RectangleImage.LoadFromUrlAsync(Album.Sizes.GetSizeMax('x').Src,
       procedure(Image: TImage)
       begin
         if Assigned(RectangleImage.Bitmap) and (not RectangleImage.Bitmap.IsEmpty) then
@@ -1644,7 +1644,7 @@ begin
   RectangleImage.Align := TAlignLayout.Client;
   if Assigned(Playlist.Photo) then
   begin
-    RectangleImage.LoadFromUrl(Playlist.Photo.Photo135,
+    RectangleImage.LoadFromUrlAsync(Playlist.Photo.Photo135,
       procedure(Image: TImage)
       begin
         Image.Visible := True;
@@ -2661,7 +2661,7 @@ begin
   FPreviewImage.Image.Bitmap := nil;
   FPreviewImage.IsLoading := True;
   if Assigned(ListBoxPhotos.Selected) then
-    FPreviewImage.Image.LoadFromUrl(ListBoxPhotos.Selected.TagString,
+    FPreviewImage.Image.LoadFromUrlAsync(ListBoxPhotos.Selected.TagString,
       procedure(Image: TImage)
       begin
         FPreviewImage.IsLoading := False;
