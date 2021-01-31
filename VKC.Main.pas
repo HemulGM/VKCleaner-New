@@ -308,7 +308,6 @@ type
     procedure ButtonMenuGroupBoardClick(Sender: TObject);
     procedure SwitchMenuSwitch(Sender: TObject);
     procedure Button1Click(Sender: TObject);
-    procedure VKAPIErrorLogin(Sender: TObject; E: Exception; Code: Integer; Text: string);
     procedure ButtonLoginOAuth2Click(Sender: TObject);
   private
     FCanManuAction: Boolean;
@@ -1342,7 +1341,7 @@ begin
     begin
       if Assigned(Profile) then
       begin
-        Result.ItemData.Text := Profile.GetFullName;
+        Result.ItemData.Text := Profile.FullName;
         Result.ItemData.Bitmap.LoadFromUrlAsync(Profile.Photo50, True,
           procedure(Image: TBitmap)
           begin
@@ -1428,7 +1427,7 @@ begin
     begin
       Id := FindUser(Item.FromId, Items.Profiles);
       if Id >= 0 then
-        From := Items.Profiles[Id].GetFullName;
+        From := Items.Profiles[Id].FullName;
     end
     else
     begin
@@ -1548,9 +1547,9 @@ begin
     Result.ItemData.Detail := Item.Status
   else if Length(Item.Career) > 0 then
     Result.ItemData.Detail := Item.UniversityName
-  else
+  else if Assigned(Item.City) then
     Result.ItemData.Detail := Item.City.Title;
-  Result.ItemData.Text := Item.GetFullName;
+  Result.ItemData.Text := Item.FullName;
   Result.ItemData.Bitmap.LoadFromUrlAsync(Item.Photo50, True,
     procedure(Image: TBitmap)
     begin
@@ -2771,7 +2770,7 @@ begin
         TThread.Synchronize(nil,
           procedure
           begin
-            ButtonMenu.Text := User.GetFullName;
+            ButtonMenu.Text := User.FullName;
             if User.Photo50.IsEmpty then
             begin
               CircleAvatar.Visible := False;
@@ -3003,14 +3002,18 @@ end;
 procedure TFormMain.VKAPIError(Sender: TObject; E: Exception; Code: Integer; Text: string);
 begin
   MemoLog.Lines.Add('Error: ' + FormatDateTime('c Z', Now) + ' ' + Code.ToString + ' - ' + Text);
-end;
-
-procedure TFormMain.VKAPIErrorLogin(Sender: TObject; E: Exception; Code: Integer; Text: string);
-begin
-  ButtonLogin.Enabled := True;
-  AniIndicatorLogin.Enabled := False;
-  AniIndicatorLogin.Visible := False;
-  ShowMessage(Text);
+  if E is TVkAuthException then
+  begin
+    ButtonLogin.Enabled := True;
+    AniIndicatorLogin.Enabled := False;
+    AniIndicatorLogin.Visible := False;
+    ShowMessage(Text);
+  end;
+  if Code = 5 then
+  begin
+    VKAPI.Token := '';
+    VKAPI.Login;
+  end;
 end;
 
 procedure TFormMain.VKAPILog(Sender: TObject; const Value: string);
