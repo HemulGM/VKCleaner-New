@@ -30,9 +30,6 @@
         <Projects Include="..\VK_API\Samples\Bot\VKBotTemplate.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="..\#Little\VKParamsParse\VKParams.dproj">
-            <Dependencies/>
-        </Projects>
         <Projects Include="..\VK_API\Samples\Auth\VKAuth.dproj">
             <Dependencies/>
         </Projects>
@@ -43,6 +40,9 @@
             <Dependencies/>
         </Projects>
         <Projects Include="..\VKBotTemplate\VKBotApp.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\FMXVKClient\VKClientFMX.dproj">
             <Dependencies/>
         </Projects>
     </ItemGroup>
@@ -134,15 +134,6 @@
     <Target Name="VKBotTemplate:Make">
         <MSBuild Projects="..\VK_API\Samples\Bot\VKBotTemplate.dproj" Targets="Make"/>
     </Target>
-    <Target Name="VKParams">
-        <MSBuild Projects="..\#Little\VKParamsParse\VKParams.dproj"/>
-    </Target>
-    <Target Name="VKParams:Clean">
-        <MSBuild Projects="..\#Little\VKParamsParse\VKParams.dproj" Targets="Clean"/>
-    </Target>
-    <Target Name="VKParams:Make">
-        <MSBuild Projects="..\#Little\VKParamsParse\VKParams.dproj" Targets="Make"/>
-    </Target>
     <Target Name="VKAuth">
         <MSBuild Projects="..\VK_API\Samples\Auth\VKAuth.dproj"/>
     </Target>
@@ -179,14 +170,23 @@
     <Target Name="VKBotApp:Make">
         <MSBuild Projects="..\VKBotTemplate\VKBotApp.dproj" Targets="Make"/>
     </Target>
+    <Target Name="VKClientFMX">
+        <MSBuild Projects="..\FMXVKClient\VKClientFMX.dproj"/>
+    </Target>
+    <Target Name="VKClientFMX:Clean">
+        <MSBuild Projects="..\FMXVKClient\VKClientFMX.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="VKClientFMX:Make">
+        <MSBuild Projects="..\FMXVKClient\VKClientFMX.dproj" Targets="Make"/>
+    </Target>
     <Target Name="Build">
-        <CallTarget Targets="VKCleaner;Project1;VKClean;VKPlayer;VKComponents;RandomWall;HGMComponents;VKMessageApp;VKBotTemplate;VKParams;VKAuth;FMXStorage;GFCBot;VKBotApp"/>
+        <CallTarget Targets="VKCleaner;Project1;VKClean;VKPlayer;VKComponents;RandomWall;HGMComponents;VKMessageApp;VKBotTemplate;VKAuth;FMXStorage;GFCBot;VKBotApp;VKClientFMX"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="VKCleaner:Clean;Project1:Clean;VKClean:Clean;VKPlayer:Clean;VKComponents:Clean;RandomWall:Clean;HGMComponents:Clean;VKMessageApp:Clean;VKBotTemplate:Clean;VKParams:Clean;VKAuth:Clean;FMXStorage:Clean;GFCBot:Clean;VKBotApp:Clean"/>
+        <CallTarget Targets="VKCleaner:Clean;Project1:Clean;VKClean:Clean;VKPlayer:Clean;VKComponents:Clean;RandomWall:Clean;HGMComponents:Clean;VKMessageApp:Clean;VKBotTemplate:Clean;VKAuth:Clean;FMXStorage:Clean;GFCBot:Clean;VKBotApp:Clean;VKClientFMX:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="VKCleaner:Make;Project1:Make;VKClean:Make;VKPlayer:Make;VKComponents:Make;RandomWall:Make;HGMComponents:Make;VKMessageApp:Make;VKBotTemplate:Make;VKParams:Make;VKAuth:Make;FMXStorage:Make;GFCBot:Make;VKBotApp:Make"/>
+        <CallTarget Targets="VKCleaner:Make;Project1:Make;VKClean:Make;VKPlayer:Make;VKComponents:Make;RandomWall:Make;HGMComponents:Make;VKMessageApp:Make;VKBotTemplate:Make;VKAuth:Make;FMXStorage:Make;GFCBot:Make;VKBotApp:Make;VKClientFMX:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

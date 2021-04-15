@@ -280,13 +280,11 @@ type
     procedure ButtonMenuGroupBackClick(Sender: TObject);
     procedure ListBoxAlbumsItemClick(const Sender: TCustomListBox; const Item: TListBoxItem);
     procedure ButtonPhotosBackClick(Sender: TObject);
-    procedure ListBoxPhotosViewportPositionChange(Sender: TObject; const OldViewportPosition, NewViewportPosition:
-      TPointF; const ContentSizeChanged: Boolean);
+    procedure ListBoxPhotosViewportPositionChange(Sender: TObject; const OldViewportPosition, NewViewportPosition: TPointF; const ContentSizeChanged: Boolean);
     procedure VKAPIError(Sender: TObject; E: Exception; Code: Integer; Text: string);
     procedure ListBoxAlbumsResize(Sender: TObject);
     procedure ListBoxPhotosResize(Sender: TObject);
-    procedure ListBoxAlbumsViewportPositionChange(Sender: TObject; const OldViewportPosition, NewViewportPosition:
-      TPointF; const ContentSizeChanged: Boolean);
+    procedure ListBoxAlbumsViewportPositionChange(Sender: TObject; const OldViewportPosition, NewViewportPosition: TPointF; const ContentSizeChanged: Boolean);
     procedure ListBoxVideoAlbumsResize(Sender: TObject);
     procedure ListBoxVideoAlbumsItemClick(const Sender: TCustomListBox; const Item: TListBoxItem);
     procedure Button7Click(Sender: TObject);
@@ -309,6 +307,7 @@ type
     procedure SwitchMenuSwitch(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure ButtonLoginOAuth2Click(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     FCanManuAction: Boolean;
     FChangePasswordHash: string;
@@ -324,8 +323,7 @@ type
     function CreateAlbumListItem(Listbox: TListBox; Album: TVkPhotoAlbum): TListBoxItem;
     function CreateAudioListItem(Listbox: TListBox; Audio: TVkAudio): TListBoxItem;
     function CreateAudioPlaylistListItem(Listbox: TListBox; Playlist: TVkAudioPlaylist): TListBoxItem;
-    function CreateDialogListItem(Listbox: TListBox; Item: TVkConversationItem; Profile: TVkProfile; Group: TVkGroup):
-      TListBoxItem;
+    function CreateDialogListItem(Listbox: TListBox; Item: TVkConversationItem; Profile: TVkProfile; Group: TVkGroup): TListBoxItem;
     function CreateDocListItem(Listbox: TListBox; Doc: TVkDocument): TListBoxItem;
     function CreateFaveListItem(Listbox: TListBox; Item: TVkFave): TListBoxItem;
     function CreateGroupListItem(Listbox: TListBox; Item: TVkGroup): TListBoxItem;
@@ -379,13 +377,13 @@ const
   IHeight = 165;
   IScroll = 25;
   IWidth = 245;
-
-var
-  FormMain: TFormMain;
   FileTypes: array of string = ['', '3ds', 'dll', 'jpeg', 'log', 'jar', 'doc', 'ppt', 'obj', 'flv', 'dat', 'ai', 'gif',
     'bat', 'php', 'dwg', 'exe', 'eml', 'pdf', 'html', 'iso', 'srt', 'rar', 'xml', 'otf', 'zip', 'app', 'js', 'psd',
     'jpg', 'css', 'mp4', 'docx', 'mp3', 'csv', 'asp', 'eps', 'sql', 'cpp', 'ttf', 'mov', 'txt', 'wav', 'svg', 'png',
     'cs', 'xls', 'ics', 'xlsx', 'mdb', 'pub', 'torrent'];
+
+var
+  FormMain: TFormMain;
 
 implementation
 
@@ -934,7 +932,7 @@ begin
       LabelMenuGBoardCnt.Text := '';
       LabelMenuGDocsCnt.Text := '';
 
-      if VKAPI.Groups.GetById(Groups, GroupID, [gfCounters]) then
+      if VKAPI.Groups.GetById(Groups, GroupID, [TVkGroupField.Counters]) then
       begin
         TThread.ForceQueue(nil,
           procedure
@@ -1324,8 +1322,7 @@ begin
   end;
 end;
 
-function TFormMain.CreateDialogListItem(Listbox: TListBox; Item: TVkConversationItem; Profile: TVkProfile; Group:
-  TVkGroup): TListBoxItem;
+function TFormMain.CreateDialogListItem(Listbox: TListBox; Item: TVkConversationItem; Profile: TVkProfile; Group: TVkGroup): TListBoxItem;
 var
   ItemLink: TListBoxItem;
 begin
@@ -1401,11 +1398,11 @@ end;
 
 function TFormMain.CreateFaveListItem(Listbox: TListBox; Item: TVkFave): TListBoxItem;
 begin
-  if Item.&Type = ftVideo then
+  if Item.&Type = TVkFaveType.Video then
     Result := CreateVideoListItem(Listbox, Item.Video)
-  else if Item.&Type = ftProduct then
+  else if Item.&Type = TVkFaveType.Product then
     Result := CreateProductListItem(Listbox, Item.Product)
-  else if Item.&Type = ftLink then
+  else if Item.&Type = TVkFaveType.Link then
     Result := CreateLinkListItem(Listbox, Item.Link)
   else
   begin
@@ -2075,7 +2072,7 @@ begin
           Result := 0;
           Params.Count(100);
           Params.Offset(Offset);
-          Params.Fields([gfDescription, gfStatus, gfMembersCount, gfStartDate, gfPhoto50]);
+          Params.Fields([TVkGroupField.Description, TVkGroupField.Status, TVkGroupField.MembersCount, TVkGroupField.StartDate, TVkGroupField.Photo50]);
           if VKAPI.Groups.Get(Items, Params) then
           begin
             Cnt := Items.Count;
@@ -2127,7 +2124,7 @@ begin
           Result := 0;
           Params.Count(100);
           Params.Offset(Offset);
-          Params.Fields([ufNickName, ufUniversities, ufStatus, ufCity, ufPhoto50]);
+          Params.Fields([TVkProfileField.NickName, TVkProfileField.Universities, TVkProfileField.Status, TVkProfileField.City, TVkProfileField.Photo50]);
           if VKAPI.Friends.Get(Items, Params) then
           begin
             Cnt := Items.Count;
@@ -2489,7 +2486,7 @@ begin
           Params.GroupId(GroupID);
           Params.Count(100);
           Params.Offset(Offset);
-          Params.Fields([mfDomain, mfUniversities, mfStatus, mfCity, mfPhoto50]);
+          Params.Fields([TVkProfileField.Domain, TVkProfileField.Universities, TVkProfileField.Status, TVkProfileField.City, TVkProfileField.Photo50]);
           if VKAPI.Groups.GetMembers(Items, Params) then
           begin
             Cnt := Items.Count;
@@ -2543,7 +2540,7 @@ begin
         Params.PhotoSizes(True);
         if OwnerId <> 0 then
           Params.OwnerId(OwnerId);
-        Params.AlbumIds([saSaved.ToVkId, saProfile.ToVkId, saWall.ToVkId]);
+        Params.AlbumIds([TVkPhotoSystemAlbum.Saved.ToVkId, TVkPhotoSystemAlbum.Profile.ToVkId, TVkPhotoSystemAlbum.Wall.ToVkId]);
         if VKAPI.Photos.GetAlbums(Albums, Params) then
         begin
           try
@@ -2623,6 +2620,12 @@ begin
   //MultiViewMain.Visible := True;
 end;
 
+procedure TFormMain.FormShow(Sender: TObject);
+begin
+  Sleep(3000);
+  ShowMessage('FormShow');
+end;
+
 procedure TFormMain.ListBoxAlbumsItemClick(const Sender: TCustomListBox; const Item: TListBoxItem);
 begin
   if ListBoxAlbums.Tag = 1 then
@@ -2644,8 +2647,7 @@ type
     function LastVisibleObjectIndex: Integer;
   end;
 
-procedure TFormMain.ListBoxAlbumsViewportPositionChange(Sender: TObject; const OldViewportPosition, NewViewportPosition:
-  TPointF; const ContentSizeChanged: Boolean);
+procedure TFormMain.ListBoxAlbumsViewportPositionChange(Sender: TObject; const OldViewportPosition, NewViewportPosition: TPointF; const ContentSizeChanged: Boolean);
 var
   i: Integer;
 begin
@@ -2674,8 +2676,7 @@ begin
   ListBoxPhotos.ItemHeight := ListBoxPhotos.ItemWidth * (IHeight / IWidth);
 end;
 
-procedure TFormMain.ListBoxPhotosViewportPositionChange(Sender: TObject; const OldViewportPosition, NewViewportPosition:
-  TPointF; const ContentSizeChanged: Boolean);
+procedure TFormMain.ListBoxPhotosViewportPositionChange(Sender: TObject; const OldViewportPosition, NewViewportPosition: TPointF; const ContentSizeChanged: Boolean);
 begin
   if NewViewportPosition.Y > 0 then
   begin
@@ -2763,7 +2764,7 @@ begin
       MParams: TVkParamsConversationsGet;
     begin
       FUserId := 0;
-      if VKAPI.Users.Get(User, [ufPhoto50]) then
+      if VKAPI.Users.Get(User, [TVkProfileField.Photo50]) then
       begin
         FUserId := User.Id;
         Photo := TBitmap.CreateFromUrl(User.Photo50);
@@ -2818,7 +2819,7 @@ begin
         Photos.Free;
       end;
       PParams.Count(1);
-      PParams.AlbumId(TVkPhotoSystemAlbum.saSaved);
+      PParams.AlbumId(TVkPhotoSystemAlbum.Saved);
       if VKAPI.Photos.Get(Photos, PParams) then
       begin
         i := i + Photos.Count;
@@ -2920,8 +2921,8 @@ begin
       end;
 
       GParams.Count(1000);
-      GParams.Filter([gftAdmin]);
-      GParams.Fields([gfMembersCount, gfPhoto50]);
+      GParams.Filter([TVkGroupFilter.Admin]);
+      GParams.Fields([TVkGroupField.MembersCount, TVkGroupField.Photo50]);
       if VKAPI.Groups.Get(Groups, GParams) then
       begin
         for i := Low(Groups.Items) to High(Groups.Items) do
@@ -2973,8 +2974,7 @@ begin
     end);
 end;
 
-procedure TFormMain.VKAPIAuth(Sender: TObject; Url: string; var Token: string; var TokenExpiry: Int64; var
-  ChangePasswordHash: string);
+procedure TFormMain.VKAPIAuth(Sender: TObject; Url: string; var Token: string; var TokenExpiry: Int64; var ChangePasswordHash: string);
 begin
   if FToken.IsEmpty then
   begin
